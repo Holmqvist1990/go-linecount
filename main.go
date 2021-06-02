@@ -9,8 +9,7 @@ import (
 )
 
 func main() {
-	err := run()
-	if err != nil {
+	if err := run(); err != nil {
 		log.Fatal(err)
 	}
 }
