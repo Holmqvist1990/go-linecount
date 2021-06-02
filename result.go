@@ -32,11 +32,23 @@ func (r Result) Print() {
 	fmt.Printf("Files: %d.\n", r.TotalFiles)
 	fmt.Printf("Lines of code: %d.\n", r.TotalLines)
 	fmt.Printf("Characters: %d.\n", r.TotalChars)
-	fmt.Printf("Average characters per line: %d.\n", r.TotalChars/r.TotalLines)
+	fmt.Printf("Average characters per line: %d.\n", r.averageCharacters())
+	if len(r.FileExtensions) == 0 {
+		fmt.Println("No extensions.")
+		return
+	}
 	fmt.Println("File extensions:")
 	for k := range r.FileExtensions {
 		fmt.Printf("\t* %s\n", k)
 	}
+}
+
+func (r Result) averageCharacters() int {
+	average := 0
+	if r.TotalChars > 0 && r.TotalLines > 0 {
+		average = r.TotalChars / r.TotalLines
+	}
+	return average
 }
 
 func walker(r *Result) func(path string, info os.FileInfo, err error) error {

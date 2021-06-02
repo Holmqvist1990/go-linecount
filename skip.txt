@@ -1,0 +1,7 @@
+.gitignore
+node_modules
+build
+package.json
+package-lock.json
+netcoreapp3.1
+.min.js

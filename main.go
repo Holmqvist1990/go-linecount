@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
+	"strings"
 )
 
 func main() {
@@ -20,6 +22,9 @@ func run() error {
 		return fmt.Errorf("path cannot be empty")
 	}
 
+	extensions = readExtensions()
+	skips = readSkips()
+
 	for _, s := range logo {
 		fmt.Println(s)
 	}
@@ -32,29 +37,26 @@ func run() error {
 	return nil
 }
 
-var extensions = []string{
-	"go",
-	"cs",
-	"js",
-	"swift",
-	"java",
-	"json",
-	"ruby",
-	"md",
-	"strings",
-	"html",
-	"css",
+func readExtensions() []string {
+	b, err := os.ReadFile("./extensions.txt")
+	if err != nil {
+		panic(fmt.Sprintf("readExtensions: %v", err))
+	}
+	return strings.Split(string(b), "\r")
 }
 
-var skips = []string{
-	".gitignore",
-	"node_modules",
-	"build",
-	"package.json",
-	"package-lock.json",
-	"netcoreapp3.1",
-	".min.js",
+func readSkips() []string {
+	b, err := os.ReadFile("./skip.txt")
+	if err != nil {
+		panic(fmt.Sprintf("readSkips: %v", err))
+	}
+	return strings.Split(string(b), "\r")
 }
+
+var (
+	extensions = []string{}
+	skips      = []string{}
+)
 
 var logo = []string{
 	"",
