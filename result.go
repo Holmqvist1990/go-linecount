@@ -95,12 +95,12 @@ func skipFile(info os.FileInfo) bool {
 	if info.IsDir() {
 		return true
 	}
+	parts := strings.Split(info.Name(), ".")
+	if len(parts) < 2 {
+		return true
+	}
+	fileExt := parts[len(parts)-1]
 	for _, ext := range extensions {
-		parts := strings.Split(info.Name(), ".")
-		if len(parts) < 2 {
-			return true
-		}
-		fileExt := parts[len(parts)-1]
 		if fileExt == ext {
 			return false
 		}

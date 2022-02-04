@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"fmt"
 	"log"
@@ -41,7 +42,7 @@ func readExtensions() []string {
 	if err != nil {
 		panic(fmt.Sprintf("readExtensions: %v", err))
 	}
-	return strings.Split(string(b), "\r")
+	return lines(b)
 }
 
 func readSkips() []string {
@@ -49,7 +50,14 @@ func readSkips() []string {
 	if err != nil {
 		panic(fmt.Sprintf("readSkips: %v", err))
 	}
-	return strings.Split(string(b), "\r")
+	return lines(b)
+}
+
+func lines(b []byte) []string {
+	multiPlatform := string(bytes.ReplaceAll(
+		b, []byte("\r\n"), []byte("\n"),
+	))
+	return strings.Split(multiPlatform, "\n")
 }
 
 var (

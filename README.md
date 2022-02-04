@@ -4,7 +4,7 @@ Provides SLOC stats for a given project.
 
 **Example:**
 ```
-$ ./go-linecount.exe -path="."
+$ go-linecount -path=.
 
 [GIANT LOGO] 
 
@@ -14,9 +14,9 @@ Recursively reading all folders:
         result.go
 
 Files: 3.
-Lines of code: 166.
-Characters: 3696.
-Average characters per line: 22.
+Lines of code: 211.
+Characters: 4548.
+Average characters per line: 21.
 File extensions:
         * md
         * go
